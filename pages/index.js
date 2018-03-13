@@ -5,6 +5,13 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Router from 'next/router';
 
+import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import { okaidia } from 'react-syntax-highlighter/styles/prism';
+const Code = (code) => {
+  const codeString = '(num) => num + 1' + code;
+  return <SyntaxHighlighter language='javascript' style={okaidia}>{codeString}</SyntaxHighlighter>;  
+}
+
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -75,6 +82,7 @@ export default class extends Component {
         >
           Start
         </Button>
+        {Code(this.state.color)}
       </Grid>
     );
   }

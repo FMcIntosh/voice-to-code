@@ -26,6 +26,7 @@
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-redux": "^5.0.6",
+    "react-syntax-highlighter": "^7.0.2",
     "styled-components": "^2.1.2"
   },
   "devDependencies": {
