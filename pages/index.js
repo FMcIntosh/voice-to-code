@@ -4,6 +4,7 @@ import Grid from 'material-ui/Grid';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import CodeSection from 'components/CodeSection';
+import tts from 'util/textToSpeech';
 
 export default class extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class extends Component {
 
       console.log('Confidence: ' + event.results[0][0].confidence);
 
-      obj.speak(event.results[last][0].transcript);
+      tts(event.results[last][0].transcript);
     };
 
     this.recognition.onspeechend = () => {
@@ -42,24 +43,6 @@ export default class extends Component {
       diagnostic.textContent = 'Error occurred in this.recognition: ' + event.error;
     };
   }
-
-  speak = text => {
-    const synth = window.speechSynthesis;
-    if (synth.speaking) {
-      console.error('speechSynthesis.speaking');
-      return;
-    }
-
-    const voices = synth.getVoices();
-
-    if (text !== '') {
-      const utterThis = new SpeechSynthesisUtterance(text);
-      utterThis.voice = voices[4];
-      utterThis.pitch = 1;
-      utterThis.rate = 1;
-      synth.speak(utterThis);
-    }
-  };
 
   eval = () => {
     return eval(`${this.state.color}`);
