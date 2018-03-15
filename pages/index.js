@@ -3,14 +3,7 @@ import styled from 'styled-components';
 import Grid from 'material-ui/Grid';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import Router from 'next/router';
-
-import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { okaidia } from 'react-syntax-highlighter/styles/prism';
-const Code = (code) => {
-  const codeString = '(num) => num + 1' + code;
-  return <SyntaxHighlighter language='javascript' style={okaidia}>{codeString}</SyntaxHighlighter>;  
-}
+import CodeSection from 'components/CodeSection';
 
 export default class extends Component {
   constructor(props) {
@@ -68,6 +61,10 @@ export default class extends Component {
     }
   };
 
+  eval = () => {
+    return eval(`${this.state.color}`);
+  }
+
   render() {
     return (
       <Grid container direction="column" align="center">
@@ -82,7 +79,10 @@ export default class extends Component {
         >
           Start
         </Button>
-        {Code(this.state.color)}
+        <CodeSection>
+          {this.state.color}
+        </CodeSection>
+        output = {this.eval()}
       </Grid>
     );
   }
