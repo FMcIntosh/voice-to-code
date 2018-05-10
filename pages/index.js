@@ -26,16 +26,33 @@ export default class extends Component {
   };
 
   evalCode = () => {
-    return eval(`${this.state.spokenText}`);
+    return (
+      this.state.SpeechRecognition &&
+      eval(`
+    
+    var x = window.document.createElement('div');
+    x.style.backgroundColor = "red";
+    x.style.width = "1000px";
+    x.style.height = "1000px";
+
+    document.body.append(x);
+    `)
+    );
   };
 
   render() {
     return (
       <Grid container direction="column" align="center">
         <h2>Click start to have your speech recorded to text</h2>
-        <StyledField id="oppenness" multiline value={this.state.spokenText} margin="dense" />
+        <StyledField
+          id="oppenness"
+          multiline
+          value={`You said: ${this.state.spokenText}`}
+          margin="dense"
+        />
         <Button
-          primary
+          color="primary"
+          variant="raised"
           onClick={() => {
             this.state.SpeechRecognition.start();
             this.setState({ spokenText: '' });
@@ -43,7 +60,7 @@ export default class extends Component {
         >
           Start
         </Button>
-        <CodeSection>{this.state.spokenText}</CodeSection>
+        <CodeSection>{this.evalCode()}</CodeSection>
         output = {this.evalCode()}
       </Grid>
     );
